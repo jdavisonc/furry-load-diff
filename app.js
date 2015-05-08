@@ -12,11 +12,6 @@ app.config(function(ChartJsProvider) {
     });
 });
 
-app.controller('MenuCtrl', function($scope) {
-    $scope.isCollapsed = true;
-    $scope.charts = ['Line', 'Bar', 'Doughnut', 'Pie', 'Polar Area', 'Radar', 'Base'];
-});
-
 app.controller('LineCtrl', ['$scope', '$timeout', function($scope, $timeout) {
     $scope.init = function() {
 		var results = Papa.parse("/data.csv", {
