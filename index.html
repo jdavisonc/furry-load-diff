@@ -1,0 +1,80 @@
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Furry Load Diff</title>
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <!--<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">-->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+</head>
+
+<body ng-app="furry" id="top">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container" ng-controller="MenuCtrl">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand visible-xs" href="#">Furry Load Diff</a>
+            </div>
+            <nav class="hidden-xs">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#top" role="button" class="navbar-brand">
+              Furry Load Diff
+            </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container-fluid">
+            <section id="directives">
+                <div class="page-header">
+                    <h1>Directives</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12" id="line-chart" ng-controller="LineCtrl">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Line Chart</div>
+                            <div class="panel-body">
+                                <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" click="onClick" hover="onHover" series="series"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 code">
+                        <tabset>
+                            <tab heading="Settings" class="settings">
+                                <div class="settings">
+                                    <code>.chart-line</code>
+                                    <ul>
+                                        <li><code>data</code>: series data</li>
+                                        <li><code>labels</code>: x axis labels</li>
+                                        <li><code>legend</code> (default: <code>false</code>): show legend below the chart</li>
+                                        <li><code>options</code> (default: <code>{}</code>): Chart.js options</li>
+                                        <li><code>series</code> (default: <code>[]</code>): series labels</li>
+                                        <li><code>click</code> (optional): onclick event handler</li>
+                                        <li><code>colours</code> (default to global colours): colours for the chart</li>
+                                    </ul>
+                                </div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="bower_components/papa.parse/papaparse.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
