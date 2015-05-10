@@ -18,32 +18,24 @@ app.controller('MenuCtrl', function($scope) {
 });
 
 app.controller('LineCtrl', ['$scope', '$timeout', function($scope, $timeout) {
-    $scope.labels;
-    $scope.series = ['Series A', 'Series B'];
-    $scope.data = [];
-    $scope.onClick = function(points, evt) {
-        console.log(points, evt);
-    };
-
-    var load = function() {
-
-		var results = Papa.parse("data.csv", {
+    $scope.init = function() {
+		var results = Papa.parse("/data.csv", {
 			download: true,
 			complete: function(results) {
-				console.log(results);
+	            var serie = [], labels = [];
+                angular.forEach(results.data, function(row) {
+                    labels.push(row[0]);
+                    serie.push(row[3]);
+                });
+
+                $scope.labels = labels;
+                $scope.data = [];
+                $scope.data.push(serie);
+                $scope.$apply();
 			}
 		});
-
-		var serie = [], labels = [];
-		angular.forEach(results.data, function(columns) {
-			labels.push(columns[0]);
-			serie.push(columns[1]);
-		});
-
-		$scope.labels = labels;
-		$scope.data.push(serie);
     };
 
-    load();
+    $scope.init();
 
 }]);
