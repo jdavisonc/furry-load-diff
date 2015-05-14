@@ -12,10 +12,6 @@ app.config(function(ChartJsProvider) {
     });
 });
 
-app.controller('MenuCtrl', function($scope) {
-    $scope.isCollapsed = true;
-});
-
 app.controller('LineCtrl', ['$scope', '$timeout', function($scope, $timeout) {
 	$scope.charts = {};
 	$scope.series = [ 
