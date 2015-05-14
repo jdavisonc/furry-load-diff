@@ -9,7 +9,7 @@
     <link href="app.css" rel="stylesheet">
 </head>
 
-<body ng-app="furry" id="top">
+<body ng-app="furry" id="top" ng-controller="LineCtrl">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,46 +24,90 @@
             <nav class="hidden-xs">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#top" role="button" class="navbar-brand">
-              Furry Load Diff
-            </a>
+                        <a href="#top" role="button" class="navbar-brand">Furry Load Diff</a>
+                    </li>
+                    <li>
+                        <a ng-click="showSeries =! showSeries" role="button" class="navbar-brand">Series</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
-    <div class="container-fluid" ng-controller="LineCtrl">
-    	<section>
+    <div class="container-fluid">
+    	<section ng-show="showSeries" style="padding-bottom: 10px">
             <div class="row container-fluid">
-            	<form class="form-inline" ng-repeat="serie in series">
-					<div class="form-group">
-						<label for="series{{$index}}">Serie Path</label>
-						<input ng-model="serie.path" id="series{{$index}}" type="text" class="form-control" placeholder="Enter path of serie to compare">
+            	<div class="panel panel-default">
+            		<div class="panel-heading">Series</div>
+            		<div class="panel-body">
+		            	<form class="form-inline" ng-repeat="serie in series">
+							<div class="form-group">
+								<label for="series{{$index}}">Serie Path</label>
+								<input ng-model="serie.path" id="series{{$index}}" type="text" class="form-control" placeholder="Enter path of serie to compare">
+							</div>
+							<a class="btn btn-default" ng-click="deleteSerie($index)">Delete</a>
+						</form>
+						<a class="btn btn-info" ng-click="addSerie()">Add Serie</a>
+						<a class="btn btn-success" ng-click="draw()">Draw</a>
 					</div>
-					<a class="btn btn-default" ng-click="deleteSerie($index)">Delete</a>
-				</form>
-				<a class="btn btn-info" ng-click="addSerie()">Add Serie</a>
-				<a class="btn btn-success" ng-click="draw()">Draw</a>
+				</div>
             </div>
     	</section>
         <section id="directives">
-            <div class="page-header">
-                <h1>Directives</h1>
-            </div>
-            <div class="row">
-                <div class="col-lg-6" id="line-chart" ng-repeat="(name, chart) in charts">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{name}}</div>
-                        <div class="panel-body">
-                            <canvas id="line{{$index}}" class="chart chart-line" data="chart.data" labels="chart.labels" legend="true" series="chart.series"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+		 <tabset>
+		    <tab heading="Charts">
+	            <div class="row" style="margin-top: 10px">
+	                <div class="col-lg-4" id="line-chart" ng-repeat="(name, chart) in charts">
+	                    <div class="panel panel-default">
+	                        <div class="panel-heading">{{name}}</div>
+	                        <div class="panel-body">
+	                            <canvas id="line{{$index}}" class="chart chart-line" data="chart.data" labels="chart.labels" legend="true" series="chart.series"></canvas>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+		    </tab>
+		    <tab heading="Info">
+  	            <div class="row" style="margin-top: 10px">
+	                <div class="col-lg-6" id="line-chart">
+	                    <div class="panel panel-default">
+	                        <div class="panel-heading">/report/2015-06-20-24-33</div>
+
+							<div class="panel-body">
+								<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+							        <input type="text" class="form-control" ng-model="infoSearch">
+							      </div>      
+							    </div>
+							</div>
+
+                            <table class="table table-striped">
+                            	<thead>
+                            		<tr>
+                            			<th>Variable</th>
+                            			<th>Value</th>
+                            		</tr>
+                            	</thead>
+                            	<tbody>
+                            		<tr ng-repeat="var in info | orderBy:key | filter:infoSearch">
+                            			<td>{{var.name}}</td>
+                            			<td>{{var.value}}</td>
+                            		</tr>
+                            	</tbody>
+                            </table>
+	                    </div>
+	                </div>
+	            </div>
+		    </tab>
+		  </tabset>
+
+
         </section>
     </div>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/Chart.js/Chart.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="bower_components/papa.parse/papaparse.js"></script>

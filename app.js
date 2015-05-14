@@ -13,11 +13,20 @@ app.config(function(ChartJsProvider) {
 });
 
 app.controller('LineCtrl', ['$scope', '$timeout', function($scope, $timeout) {
+	$scope.showSeries = false;
 	$scope.charts = {};
 	$scope.series = [ 
 		{ path: "/data/data.csv" }, 
 		{ path: "/data/data2.csv"}, 
 		{ path: "/data/data3.csv"} 
+	];
+
+	$scope.infoSearch = "";
+	$scope.info = [
+		{ name:"ACTIVEMQ", value: "/.../"},
+		{ name:"HOST", value: "/.../"},
+		{ name:"THREADS", value: "100"},
+		{ name:"TPM", value: "1000"}
 	];
 
 	$scope.addSerie = function() {
